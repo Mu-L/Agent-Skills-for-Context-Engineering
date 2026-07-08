@@ -2,6 +2,25 @@
 
 All notable changes to this project are documented here. Versions follow semantic versioning where practical, with skill content treated as data.
 
+## [2.4.0] - 2026-07-08
+
+### Added
+
+#### New skill: self-improvement-loops
+
+- `skills/self-improvement-loops/SKILL.md`: sixteenth skill, covering systems where the harness itself is the optimization target: recursive self-improvement loops, meta-harness search, failure-driven bounded self-edits, evolutionary scaffold search, context mechanism evolution, and acceptance gates for self-modifying systems. Anchored on Lilian Weng's "Harness Engineering for Self-Improvement" (Lil'Log, July 2026) with every load-bearing mechanism cross-verified against the primary sources (Self-Harness arXiv 2606.09498, Meta-Harness arXiv 2603.28052, MCE arXiv 2601.21557, ACE arXiv 2510.04618, Darwin Godel Machine arXiv 2505.22954, AlphaEvolve arXiv 2506.13131, ShinkaEvolve arXiv 2509.19349, STOP arXiv 2310.02304, ADAS arXiv 2408.08435, AFlow arXiv 2410.10762, plus METR and Anthropic reward-hacking and sandbagging evidence).
+- `skills/self-improvement-loops/references/loop-design-evidence.md`: dated per-system numbers, acceptance-rule details, ablation findings, and documented reward-hacking incidents, kept out of the skill body per the volatility policy.
+- Explicit boundary with `harness-engineering`: that skill owns control surfaces and governance of a single autonomous loop; `self-improvement-loops` owns what happens when the surfaces themselves become the optimization target.
+
+#### Corpus wiring
+
+- 3 new mechanisms in `researcher/mechanisms/registry.jsonl`: `two-split-no-regression-acceptance`, `filesystem-experience-archive`, `runtime-enforced-loop-constraints` (19 total).
+- 6 new provenance-tracked claims in `researcher/claims/index.jsonl` (18 total), all primary-source.
+- 2 new activation cases (21 total) covering the self-improvement-loops vs harness-engineering boundary.
+- 3 new router-benchmark prompts (p051-p053) and p036 updated to accept `self-improvement-loops` as a secondary; the next paid router sweep should publish the delta per the benchmark policy.
+- Research run `20260708-034419-harness-engineering-for-self-improvement-lil-log` executed through the full state machine (source evaluation APPROVE at weighted 2.0, novelty check, run readiness) and closed as accepted; runtime run artifacts remain gitignored per policy.
+- Manifests bumped to 2.4.0; README, root SKILL.md, CLAUDE.md, and AGENTS.md updated for 16 skills.
+
 ## [2.3.1] - 2026-06-29
 
 ### Fixed

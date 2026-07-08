@@ -53,6 +53,7 @@ These skills address the ongoing operation and optimization of agent systems.
 | [evaluation](skills/evaluation/) | Build evaluation frameworks for agent systems |
 | [advanced-evaluation](skills/advanced-evaluation/) | Master LLM-as-a-Judge techniques: direct scoring, pairwise comparison, rubric generation, and bias mitigation |
 | [harness-engineering](skills/harness-engineering/) | Design autonomous agent harnesses with locked metrics, durable logs, novelty gates, rollback, and human approval boundaries |
+| [self-improvement-loops](skills/self-improvement-loops/) | **NEW** Build loops where the harness itself is the optimization target: RSI, meta-harness search, failure-driven self-edits, evolutionary scaffold search, and acceptance gates for self-modifying systems |
 
 ### Development Methodology
 
@@ -114,7 +115,7 @@ Option B - Direct install via command:
 /plugin install context-engineering@context-engineering-marketplace
 ```
 
-This installs all 15 skills in a single plugin. Skills are activated automatically based on your task context.
+This installs all 16 skills in a single plugin. Skills are activated automatically based on your task context.
 
 ### Skill Activation Scenarios
 
@@ -133,6 +134,7 @@ This installs all 15 skills in a single plugin. Skills are activated automatical
 | `evaluation` | Creating deterministic checks, rubrics, regression suites, production monitoring, or quality gates for agent behavior |
 | `advanced-evaluation` | Using LLM judges, pairwise comparison, calibration, bias mitigation, or human-aligned quality assessment |
 | `harness-engineering` | Designing autonomous loops with locked evaluators, editable surfaces, durable logs, novelty gates, rollback, and approval boundaries |
+| `self-improvement-loops` | Building loops that modify themselves: failure-driven harness self-edits, meta-harness search, evolutionary scaffold search, context mechanism evolution, and acceptance gates for self-modification |
 | `project-development` | Deciding whether an LLM is appropriate, shaping batch pipelines, creating staged artifacts, or estimating operational cost |
 | `bdi-mental-states` | Modeling beliefs, desires, intentions, rational action traces, or neuro-symbolic state transformations for agents |
 
@@ -151,7 +153,7 @@ This repository ships as an [Open Plugins](https://open-plugins.com) plugin. Hos
 **Codex / GitHub Copilot CLI / other Open Plugins hosts:**
 
 1. Clone or add this repository as a plugin directory.
-2. The host reads `.plugin/plugin.json` and discovers all 15 skills under `skills/`.
+2. The host reads `.plugin/plugin.json` and discovers all 16 skills under `skills/`.
 3. For project-local manual installs, copy skill directories into `.codex/skills/` or the host's documented Agent Skills directory.
 
 ### Using Individual Skills
@@ -178,7 +180,7 @@ cp -R skills/context-fundamentals .agents/skills/
 
 Do not flatten `SKILL.md` into a single file at `.claude/skills/context-fundamentals.md`. That breaks relative `references/` paths and violates the Agent Skills directory spec used by Cursor, Claude Code, and Codex.
 
-Available skills: `context-fundamentals`, `context-degradation`, `context-compression`, `context-optimization`, `latent-briefing`, `multi-agent-patterns`, `memory-systems`, `tool-design`, `filesystem-context`, `hosted-agents`, `evaluation`, `advanced-evaluation`, `harness-engineering`, `project-development`, `bdi-mental-states`
+Available skills: `context-fundamentals`, `context-degradation`, `context-compression`, `context-optimization`, `latent-briefing`, `multi-agent-patterns`, `memory-systems`, `tool-design`, `filesystem-context`, `hosted-agents`, `evaluation`, `advanced-evaluation`, `harness-engineering`, `self-improvement-loops`, `project-development`, `bdi-mental-states`
 
 ### For Custom Implementations
 
