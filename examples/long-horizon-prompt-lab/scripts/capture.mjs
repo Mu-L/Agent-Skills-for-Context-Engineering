@@ -1,12 +1,12 @@
 // Capture before/after screenshots of the Long-Horizon Prompt Lab UI.
 // Uses puppeteer-core driving the system Chrome. Produces, per use case:
-//   optimized-<id>-full.png      the whole page
-//   optimized-<id>-split.png     the parallel prompt documents
-//   optimized-<id>-scorecard.png the structural audit
-// Plus optimized-hero.png for the release header.
+//   shot-<id>-full.png      the whole page
+//   shot-<id>-split.png     the parallel prompt documents
+//   shot-<id>-scorecard.png the structural audit
+// Plus shot-hero.png for the release header.
 //
-// The optimized- prefix is intentional: it gives the complete-prompt revision
-// distinct URLs so image caches cannot serve the superseded template-like prompts.
+// The shot- prefix is intentional: it gives the reflowed prompt panes distinct
+// URLs so image caches cannot serve older prematurely wrapped screenshots.
 //
 // Usage: node scripts/capture.mjs
 import { existsSync } from "node:fs";
@@ -62,9 +62,9 @@ async function main() {
     args: ["--no-sandbox", "--disable-dev-shm-usage", "--force-color-profile=srgb", "--hide-scrollbars"],
   });
   const page = await browser.newPage();
-  const WIDTH = 1320;
-  const CROP_DPR = 2; // crisp for the read-the-text money shots
-  const FULL_DPR = 1; // overview context, kept light
+  const WIDTH = 1480;
+  const CROP_DPR = 2;
+  const FULL_DPR = 1;
 
   const base = pathToFileURL(UI).href;
 
@@ -79,8 +79,7 @@ async function main() {
   const ids = await page.evaluate(() => window.PROMPT_LAB_DATA.pairs.map((p) => p.id));
   console.log("Use cases:", ids.join(", "));
 
-  // Hero banner (aggregate) for the release header.
-  await clipElement(page, "#hero", resolve(OUT, "optimized-hero.png"), 0);
+  await clipElement(page, "#hero", resolve(OUT, "shot-hero.png"), 0);
 
   for (const id of ids) {
     console.log("Capturing", id);
@@ -90,12 +89,12 @@ async function main() {
     if (rendered !== expected) {
       throw new Error(`Rendered pair "${rendered}" != expected "${expected}" for id ${id}`);
     }
-    await clipElement(page, "#pair-split", resolve(OUT, `optimized-${id}-split.png`), 12);
-    await clipElement(page, "#scorecard", resolve(OUT, `optimized-${id}-scorecard.png`), 12);
+    await clipElement(page, "#pair-split", resolve(OUT, `shot-${id}-split.png`), 12);
+    await clipElement(page, "#scorecard", resolve(OUT, `shot-${id}-scorecard.png`), 12);
 
     await load(id, FULL_DPR);
-    await page.screenshot({ path: resolve(OUT, `optimized-${id}-full.png`), fullPage: true });
-    console.log("  wrote", `screenshots/optimized-${id}-full.png`);
+    await page.screenshot({ path: resolve(OUT, `shot-${id}-full.png`), fullPage: true });
+    console.log("  wrote", `screenshots/shot-${id}-full.png`);
   }
 
   await browser.close();

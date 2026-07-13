@@ -98,6 +98,44 @@
     return root;
   }
 
+  // Soft-wrap in the source files is for editing, not layout. Collapse those
+  // mid-paragraph newlines so the screenshot panes fill their column width.
+  function normalizePromptDisplay(text) {
+    const lines = String(text).replace(/\r\n/g, "\n").split("\n");
+    const out = [];
+    let paragraph = [];
+
+    const flush = () => {
+      if (!paragraph.length) return;
+      out.push(paragraph.join(" ").replace(/ +/g, " ").trim());
+      paragraph = [];
+    };
+
+    for (const raw of lines) {
+      const trimmed = raw.trim();
+      if (!trimmed) {
+        flush();
+        if (out.length && out[out.length - 1] !== "") out.push("");
+        continue;
+      }
+
+      const isList = /^([-*]|\d+\.)\s+/.test(trimmed);
+      const isHeader = /^[A-Z][A-Z0-9 /&().-]{2,}$/.test(trimmed) && trimmed.length <= 64;
+      const isFormula = /^(cost\(|E_r\[|mean\(|    )/.test(raw) || /^[ ]{2,}cost\(|^[ ]{2,}E_r\[/.test(raw);
+
+      if (isList || isHeader || isFormula) {
+        flush();
+        out.push(trimmed);
+        continue;
+      }
+
+      paragraph.push(trimmed);
+    }
+
+    flush();
+    return out.join("\n").replace(/\n{3,}/g, "\n\n").trim();
+  }
+
   function promptPanel(kind, pair) {
     const isBefore = kind === "before";
     const panel = el("div", "panel panel-" + kind);
@@ -143,7 +181,7 @@
       panel.appendChild(tech);
     }
 
-    panel.appendChild(el("pre", "prompt", pair[kind]));
+    panel.appendChild(el("pre", "prompt", normalizePromptDisplay(pair[kind])));
     return panel;
   }
 
