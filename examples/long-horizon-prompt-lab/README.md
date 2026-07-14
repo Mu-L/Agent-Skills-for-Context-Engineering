@@ -13,7 +13,8 @@ produced with the skill's brief-writing workflow, and the scoring uses the rubri
 
 ## Website
 
-The site is deployable through GitHub Pages:
+This is a **Long-Horizon Prompting** project site hosted from this monorepo. The on-page brand
+is Long-Horizon Prompting; GitHub Pages serves it under the repository path:
 
 `https://muratcankoylan.github.io/Agent-Skills-for-Context-Engineering/`
 
@@ -27,9 +28,15 @@ Pages:
 Website prompts expand fully. The screenshot renderer adds a capture-only body class so release
 PNGs remain bounded without changing the site.
 
-Deployment is defined in `.github/workflows/deploy-prompt-lab.yml`. GitHub Pages is not currently
-enabled for the repository, so the owner must select **Settings → Pages → Build and deployment →
-GitHub Actions** once after merge, then run the workflow manually or push a matching site change.
+### Publish from this repository
+
+1. In this monorepo: **Settings → Pages → Build and deployment → Source = GitHub Actions**.
+2. Merge to `main` (or run **Deploy long-horizon prompt lab** via workflow_dispatch).
+3. Open `https://muratcankoylan.github.io/Agent-Skills-for-Context-Engineering/`
+
+Deployment is defined in `.github/workflows/deploy-prompt-lab.yml`. The deploy job runs only on
+`main`.
+
 
 ## What is here
 
